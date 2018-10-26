@@ -150,9 +150,7 @@ def addLine (Line, InputData):
 		InputData['totalCertified'] += 1
 
 
-		# checkName = Line[Columns['socName']].replace('"', '')
-		# checkName = checkName.replace('"', '')	
-		# print(checkName)
+		# If the job title exists in SocName dictionary update its information.
 		putInDict(Line[Columns['socName']].replace('"', ''), 'SocName', InputData)	
 			
 
@@ -187,6 +185,7 @@ def mergeSort(toSort, theDict):
 			sL.append(LHS.pop(0))
 		elif int(theDict[LHS[0]]) < int(theDict[RHS[0]]):
 			sL.append(RHS.pop(0))
+		# If the frequency is equal, sort according to the key
 		else:
 			string1   =  LHS[0]
 			string2   =  RHS[0]
@@ -197,15 +196,14 @@ def mergeSort(toSort, theDict):
 					break
 
 				elif ord(string1[i]) > ord(string2[i]):
-				# else:
 					sL.append(RHS.pop(0))
 					break
+
 				elif i == theMin-1:
 					if theMin  ==  len(string1):
 						sL.append(LHS.pop(0))
 					else:
 						sL.append(RHS.pop(0))
-
 
 	sL.extend(LHS)
 	sL.extend(RHS)

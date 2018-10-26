@@ -6,6 +6,7 @@ import supportFunctions as sF
 inputFileName    =   1
 outputFileName1  =   2
 outputFileName2  =   3
+cutOff           =   10
 
 
 ParsedData       =   sF.readDataGetDict()
@@ -35,7 +36,7 @@ sortedStateList  =  sF.mergeSort(StateList, ParsedData['WorkState'])
 WriteData        =   'TOP_OCCUPATIONS;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE\n'
 keyValue         =   'SocName'
 for rows in sortedTitleList:
-	if rows != '':
+	if rows != '' and sortedTitleList.index(rows) < cutOff:
 		# rows = '' + rows
 		WriteData +=  '{:1s}'.format(rows) + ';'+ '{:1d}'.format(ParsedData[keyValue][rows]) + ';'+ '{:1.1f}'.format(100*ParsedData[keyValue][rows]/ParsedData['totalCertified']) + '%\n'
 # Write content of Job to file
@@ -48,7 +49,7 @@ WriteFile.close()
 WriteData        =   'TOP_STATES;NUMBER_CERTIFIED_APPLICATIONS;PERCENTAGE\n'
 keyValue         =   'WorkState'
 for rows in sortedStateList:
-	if rows != '':
+	if rows != '' and sortedStateList.index(rows) < cutOff:
 		WriteData +=  '{:1s}'.format(rows) + ';'+ '{:1d}'.format(ParsedData[keyValue][rows]) + ';'+ '{:1.1f}'.format(100*ParsedData[keyValue][rows]/ParsedData['totalCertified']) + '%\n'
 # Write content of State to file
 WriteFile     =  open(sys.argv[outputFileName2], 'w')
